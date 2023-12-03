@@ -19,7 +19,7 @@ public class Mission extends BaseEntity {
     private Long id;
     private int missionPoint;
     private int missionPrice;
-    private LocalDateTime missionDate;
+    private String missionDate;
     private Long identifier;
 
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
