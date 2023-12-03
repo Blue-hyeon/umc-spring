@@ -15,6 +15,8 @@ import umc.blue.repository.MyMissionRepository;
 import umc.blue.service.MyMissionService.MyMissionCommandService;
 import umc.blue.web.dto.MyMissionRequestDTO;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -27,7 +29,9 @@ public class MyMissionCommandServiceImpl implements MyMissionCommandService {
     @Transactional
     public MyMission challengeMission(MyMissionRequestDTO.challengeMission request) {
 
-        if(myMissionRepository.existsById(request.getMissionId())) {
+        Optional<MyMission> myMission = myMissionRepository.findByMemberIdAndMissionId(request.getMemberId(), request.getMissionId());
+
+        if(myMission.isPresent()) {
             throw new MissionHandler(ErrorStatus.MY_MISSION_IS_EXIST);
         }
 
