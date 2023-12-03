@@ -4,6 +4,8 @@ import lombok.*;
 import umc.blue.domain.common.BaseEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,7 +19,6 @@ public class Region extends BaseEntity {
     @Column(nullable = false, length = 10)
     private String regionName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "region_id")
-    private Region region;
+    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
+    private List<Store> storeList = new ArrayList<>();
 }

@@ -24,12 +24,15 @@ public class Store extends BaseEntity {
     @Column(nullable = false, length = 11)
     private String storePhone;
     private Float rating;
-    private LocalTime openTime;
-    private LocalTime closeTime;
+    private String openTime;
+    private String closeTime;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Mission> missionList = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region_id")
+    private Region region;
 }
