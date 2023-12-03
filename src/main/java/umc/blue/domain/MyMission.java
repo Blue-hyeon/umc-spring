@@ -17,7 +17,6 @@ public class MyMission extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("'DOING")
     private MissionStatus missionStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
