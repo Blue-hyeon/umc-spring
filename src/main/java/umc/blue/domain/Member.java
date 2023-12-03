@@ -2,6 +2,8 @@ package umc.blue.domain;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.blue.domain.common.BaseEntity;
 import umc.blue.domain.enums.Gender;
 import umc.blue.domain.enums.MemberStatus;
@@ -14,6 +16,8 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
+@DynamicUpdate
+@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Member extends BaseEntity {
@@ -28,9 +32,9 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @ColumnDefault("'ACTIVE'")
     private MemberStatus status;
-    @Column(nullable = false, length = 30)
+    @Column(nullable = true, length = 30)
     private String email;
-    @Column(nullable = false, length = 20)
+    @Column(nullable = true, length = 20)
     private String password;
     private LocalDate birth;
     @Column(length = 11)
@@ -49,4 +53,6 @@ public class Member extends BaseEntity {
     private List<MyPoint> myPointList = new ArrayList<>();
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Progress> progressList = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberPrefer> memberPreferList = new ArrayList<>();
 }
