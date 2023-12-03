@@ -4,6 +4,7 @@
     <facet type="web" name="Web">
       <configuration>
         <webroots />
+        <sourceRoots />
       </configuration>
     </facet>
     <facet type="jpa" name="JPA">
@@ -20,9 +21,11 @@
       <configuration />
     </facet>
   </component>
-  <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$/../../build/generated/sources/annotationProcessor/java/main">
-      <sourceFolder url="file://$MODULE_DIR$/../../build/generated/sources/annotationProcessor/java/main" isTestSource="false" generated="true" />
-    </content>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <output-test url="file://$MODULE_DIR$/../../build/classes/java/test" />
+    <exclude-output />
+    <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="TestModuleProperties" production-module="blue.main" />
 </module>

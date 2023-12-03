@@ -11,7 +11,7 @@ import umc.blue.domain.Food;
 import umc.blue.domain.Member;
 import umc.blue.domain.MemberPrefer;
 import umc.blue.repository.FoodRepository;
-import umc.blue.repository.MemberRespository;
+import umc.blue.repository.MemberRepository;
 import umc.blue.web.dto.MemberRequestDTO;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MemberCommandServiceImpl implements MemberCommandService{
-    private final MemberRespository memberRepository;
+    private final MemberRepository memberRepository;
     private final FoodRepository foodRepository;
 
     @Override
