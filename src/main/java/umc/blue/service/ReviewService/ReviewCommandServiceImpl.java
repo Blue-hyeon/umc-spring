@@ -14,7 +14,6 @@ import umc.blue.repository.ReviewRepository;
 import umc.blue.repository.StoreRepository;
 import umc.blue.web.dto.ReviewRequestDTO;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +31,6 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
         Review newReview = ReviewConverter.toReview(request, member, store);
 
         return reviewRepository.save(newReview);
+
     }
-
-
 }

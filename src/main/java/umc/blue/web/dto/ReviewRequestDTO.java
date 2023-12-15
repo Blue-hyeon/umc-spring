@@ -6,6 +6,7 @@ import umc.blue.validation.annotation.ExistStore;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
 public class ReviewRequestDTO {
     @Getter
     public static class addReviewDTO {
