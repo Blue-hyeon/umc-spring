@@ -9,7 +9,7 @@ import umc.blue.apiPayload.code.ErrorReasonDTO;
 @AllArgsConstructor
 public class GeneralException extends RuntimeException {
     private BaseErrorCode code;
-    public ErrorReasonDTO getReason(){
+    public ErrorReasonDTO getErrorReason(){
         return this.code.getReason();
     }
     public ErrorReasonDTO getErrorReasonHttpStatus(){

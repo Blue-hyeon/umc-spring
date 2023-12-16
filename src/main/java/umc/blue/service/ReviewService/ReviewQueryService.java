@@ -5,4 +5,5 @@ import umc.blue.domain.Review;
 
 public interface ReviewQueryService {
     Page<Review> getReviewList(Long storeId, Integer page);
+    Page<Review> getUserReviewList(Long userId, Integer page);
 }

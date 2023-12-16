@@ -7,12 +7,15 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umc.blue.apiPayload.ApiResponse;
 import umc.blue.converter.ReviewConverter;
 import umc.blue.domain.Review;
 import umc.blue.service.ReviewService.ReviewCommandService;
 import umc.blue.service.ReviewService.ReviewQueryService;
+import umc.blue.validation.annotation.CheckPage;
 import umc.blue.validation.annotation.ExistStore;
 import umc.blue.web.dto.ReviewRequestDTO;
 import umc.blue.web.dto.ReviewResponseDTO;
@@ -22,6 +25,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@Validated
 @RequestMapping("/reviews")
 public class ReviewRestController {
     private final ReviewCommandService reviewCommandService;
@@ -42,12 +46,31 @@ public class ReviewRestController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH006", description = "acess 토큰 모양이 이상함",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
     })
     @Parameters({
-            @Parameter(name = "storeId", description = "조회할 가게의 아이디, path variable임")
+            @Parameter(name = "storeId", description = "조회할 가게의 아이디, path variable임"),
+            @Parameter(name = "page", description = "페이지 번호, 0번이 1 페이지 입니다.")
     })
     public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getReviewList(@ExistStore @PathVariable(name = "storeId") Long storeId,
                                                                              @RequestParam(name = "page") Integer page) {
-        reviewQueryService.getReviewList(storeId, page);
+        Page<Review> reviewList = reviewQueryService.getReviewList(storeId, page);
 
-        return null;
+        return ApiResponse.onSuccess(ReviewConverter.reviewPreviewListDTO(reviewList));
+    }
+
+    @GetMapping("/user-reviews")
+    @Operation(summary = "특정 유저의 리뷰 목록 조회 API", description = "특정 유저의 리뷰 목록을 조회하며, 페이징을 포함. query String으로 page 번호 필요.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH003", description = "access 토큰을 주세요!",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH004", description = "acess 토큰 만료",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH006", description = "acess 토큰 모양이 이상함",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+    })
+    @Parameters({
+            @Parameter(name = "page", description = "페이지 번호, 0번이 1 페이지 입니다.")
+    })
+    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getUserReviewList(@RequestHeader Long memberId, @CheckPage @RequestParam(name = "page") Integer page) {
+
+        Page<Review> reviewList = reviewQueryService.getUserReviewList(memberId, page-1);
+
+        return ApiResponse.onSuccess(ReviewConverter.reviewPreviewListDTO(reviewList));
     }
 }
