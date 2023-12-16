@@ -5,4 +5,5 @@ import umc.blue.domain.MyMission;
 
 public interface MyMissionQueryService {
     Page<MyMission> getMyMissionList(Long memberId, Integer page);
+    MyMission completeMyMission(Long myMissionId, Long memberId);
 }

@@ -36,7 +36,8 @@ public enum ErrorStatus implements BaseErrorCode {
     STORE_NOT_FOUND(HttpStatus.BAD_REQUEST, "STORE4001", "가게가 없습니다."),
 
     //10주차 미션
-    PAGE_IS_NOT_VALID(HttpStatus.BAD_REQUEST, "PAGE4001", "페이지 수가 유효하지 않습니다.");
+    PAGE_IS_NOT_VALID(HttpStatus.BAD_REQUEST, "PAGE4001", "페이지 수가 유효하지 않습니다."),
+    MEMBER_IS_NOT_ALLOWED(HttpStatus.BAD_REQUEST, "MEMBER4001", "해당 미션에 도전할 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

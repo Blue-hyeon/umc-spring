@@ -52,4 +52,19 @@ public class MyMissionController {
 
         return ApiResponse.onSuccess(MyMissionConverter.toMyMissionListDTO(myMissions));
     }
+
+    @PatchMapping("/{myMissionId}/done")
+    @Operation(summary = "미션 도전 완료 API", description = "미션을 완료하는 API. 완료할 미션 ID와 유저 ID 필요.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH003", description = "access 토큰을 주세요!",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH004", description = "acess 토큰 만료",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH006", description = "acess 토큰 모양이 이상함",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+    })
+    public ApiResponse<MyMissionResponseDTO.missionCompleteDTO> completeMyMission(@RequestHeader Long memberId, @PathVariable("myMissionId") Long myMissionId){
+
+        MyMission myMission = myMissionQueryService.completeMyMission(myMissionId, memberId);
+
+        return ApiResponse.onSuccess(MyMissionConverter.toMissionCompleteDTO(myMission));
+    }
 }

@@ -51,4 +51,12 @@ public class MyMissionConverter {
                 .isLast(myMissionList.isLast())
                 .build();
     }
+
+    public static MyMissionResponseDTO.missionCompleteDTO toMissionCompleteDTO(MyMission myMission){
+        return MyMissionResponseDTO.missionCompleteDTO.builder()
+                .myMissionId(myMission.getId())
+                .updatedAt(myMission.getUpdatedAt())
+                .missionStatus(myMission.getMissionStatus())
+                .build();
+    }
 }
